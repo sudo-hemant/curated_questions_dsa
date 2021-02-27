@@ -1,5 +1,4 @@
 
-# TODO:     WRITE AND UNDERSTAND TIME COMPLEXITY PROPERLY
 
 # NOTE:     this problem is quite similar to BFS, but instead of using queue, we are using priority queue
     # best reference -- pepcoding 
@@ -20,21 +19,31 @@ class Solution:
         # to indicate whether the particular node is already processed or not
         spt_set = [False] * V
         
+        # Tc  --  O(V)
         for _ in range(V):
+
+            # Tc  ---  O(V) 
+            # if min-heap is used, it can be reduced to O(log(V)) and overall will be O(V log(v))
             # find the minimum weight edge among all edges which is not processed yet
             min_index = self.min_weight_in_non_spt(min_dist_from_source, spt_set, V)
 
             # mark the current node as visited/processed/included in spt(spanning tree)
             spt_set[min_index] = True
 
+            # since here it is adjacency list  --  O(V + E) overall 
+            # NOTE: don't multiply this tc with the outer loop bcos O(V + E) is tc after considering
+            # outer loop as well
+
             # visits all adjacents of the current node and update the distance of the unprocessed node
             for adjacents, cost in adj[min_index]:
                 if not spt_set[adjacents] and min_dist_from_source[adjacents] > min_dist_from_source[min_index] + cost:
+                    
+                    # Tc -- this takes log(v) time
                     min_dist_from_source[adjacents] = min_dist_from_source[min_index] + cost
 
         return min_dist_from_source
 
-
+    # NOTE: Tc  --  O(V)
     # finds the minimum weight node, among all the nodes which are not processed yet
     def min_weight_in_non_spt(self, min_dist_from_source, spt_set, V):
         minimum_weight, minimum_index = float('inf'), -1
@@ -46,6 +55,8 @@ class Solution:
 
         return minimum_index
 
+
+    # NOTE: Tc is O(V^2) and if adjacency list and min heap is used it will be O(V log(v)) + O((V + E) log(v))
 
 
 import atexit
