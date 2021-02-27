@@ -6,6 +6,23 @@
 # NOTE:     We can also use heap to find the minimum weighted edge insted of using the function min_weight_in_non_spt
 #            to reduce time complexity
 
+
+# NOTE:
+
+# The code calculates shortest distance, but doesn’t calculate the path information. We can create
+# a parent array, update the parent array when distance is updated (like prim’s implementation) 
+# and use it show the shortest path from source to different vertices.
+
+# The code is for undirected graph, same dijkstra function can be used for directed graphs also.
+
+# The code finds shortest distances from source to all vertices. If we are interested only in shor
+# test distance from source to a single target, we can break the for loop when the picked minimum
+# distance vertex is equal to target (Step 3.a of algorithm).
+
+# Dijkstra’s algorithm doesn’t work for graphs with negative weight edges. For graphs with negativ
+# e weight edges, Bellman–Ford algorithm can be used, we will soon be discussing it as a separate post.
+
+
 class Solution:
 
     def dijkstra(self, V, adj, S):
